@@ -22,6 +22,19 @@ The server must be running for daily auto-refresh to fire (it checks every 15 mi
 
 For a production build: `npm run build && npm start`.
 
+## See it on your phone
+
+The UI is responsive; the server prints every reachable URL on startup.
+
+- **Same Wi-Fi:** run `npm run dev` and open the printed `On your phone` URL (e.g. `http://192.168.1.23:3000`) in your phone's browser. Use "Add to Home Screen" to pin it.
+- **From anywhere — [Tailscale](https://tailscale.com/download) (free):**
+  1. Install Tailscale on the computer and sign in (Google/GitHub/Apple account works).
+  2. Install the Tailscale app on the phone and sign in with the same account; enable the VPN toggle.
+  3. With the server running, open `http://100.x.y.z:3000` on the phone — the `100.x.y.z` address appears in the Tailscale menu on the computer, and in the server's startup log once Tailscale is installed. Works on cellular too; only your own signed-in devices can reach it.
+  4. Keep the computer awake (e.g. macOS: System Settings → Battery → prevent sleep when display is off) so the server and the daily refresh keep running.
+
+Avoid deploying to a public cloud host for now: Craigslist blocks most datacenter IPs (the daily fetch would break), and the app has no login.
+
 ## How data gets in
 
 1. **Automated (Craigslist)** — six pre-configured searches (1BR ≤$3000 and 2BR/2BA ≤$4400, cats-OK, across Peninsula / South Bay / East Bay) run daily and on demand. New listings arrive with status **New**; price changes are recorded in each listing's price history; listings that vanish from search results for 3+ days get flagged *likely gone*.
