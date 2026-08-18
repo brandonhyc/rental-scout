@@ -1,4 +1,5 @@
 import express from 'express';
+import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { loadDB, saveDB, findListingByUrl, newId } from './server/store';
@@ -143,6 +144,13 @@ async function start() {
 
   app.listen(PORT, () => {
     console.log(`Bay Rental Scout running at http://localhost:${PORT}`);
+    for (const infos of Object.values(os.networkInterfaces())) {
+      for (const info of infos ?? []) {
+        if (info.family === 'IPv4' && !info.internal) {
+          console.log(`  On your phone (same Wi-Fi): http://${info.address}:${PORT}`);
+        }
+      }
+    }
   });
   startScheduler(db);
 }
