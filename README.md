@@ -31,7 +31,8 @@ The UI is responsive; the server prints every reachable URL on startup.
   1. Install Tailscale on the computer and sign in (Google/GitHub/Apple account works).
   2. Install the Tailscale app on the phone and sign in with the same account; enable the VPN toggle.
   3. With the server running, open `http://100.x.y.z:3000` on the phone — the `100.x.y.z` address appears in the Tailscale menu on the computer, and in the server's startup log once Tailscale is installed. Works on cellular too; only your own signed-in devices can reach it.
-  4. Keep the computer awake (e.g. macOS: System Settings → Battery → prevent sleep when display is off) so the server and the daily refresh keep running.
+  4. Keep the computer awake so the server and the daily refresh keep running — Windows: Settings → System → Power & battery → Screen and sleep → "When plugged in, put my device to sleep after" → **Never**; macOS: System Settings → Battery → prevent sleep when display is off.
+  5. Windows Firewall may ask to allow Node.js the first time the server starts — click **Allow**. If the phone still can't connect, allow Node.js for both private and public networks in "Allow an app through Windows Firewall".
 
 Avoid deploying to a public cloud host for now: Craigslist blocks most datacenter IPs (the daily fetch would break), and the app has no login.
 

@@ -3,8 +3,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import type { DB, Settings, CityInfo, Listing } from '../src/types';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const DATA_DIR = path.join(__dirname, '..', 'data');
+// ESM in dev (tsx), CJS in the esbuild production bundle — resolve either way.
+// Both land on <repo>/data: server/../data in dev, dist/../data when bundled.
+const moduleDir = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+const DATA_DIR = path.join(moduleDir, '..', 'data');
 const DB_PATH = path.join(DATA_DIR, 'db.json');
 
 // Commute minutes are typical weekday-morning driving estimates to downtown

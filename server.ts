@@ -1,4 +1,5 @@
 import express from 'express';
+import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -8,10 +9,15 @@ import { importFromUrl, importFromText } from './server/importers';
 import { runRefresh, startScheduler } from './server/refresh';
 import type { Listing } from './src/types';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Dev runs as ESM via tsx (import.meta.url set, __dirname not); the production
+// bundle is CJS via esbuild (__dirname set, import.meta.url undefined).
+const moduleDir = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
-const isProd = process.env.NODE_ENV === 'production';
+// Production = running the esbuild bundle (dist/server.cjs next to dist/client).
+// Checked via the built client dir so `npm start` works on Windows too, where
+// `NODE_ENV=production node ...` shell syntax isn't available.
+const isProd = process.env.NODE_ENV === 'production' || fs.existsSync(path.join(moduleDir, 'client'));
 
 app.use(express.json({ limit: '5mb' }));
 
@@ -133,7 +139,7 @@ app.put('/api/settings', (req, res) => {
 
 async function start() {
   if (isProd) {
-    const clientDir = path.join(__dirname, 'client');
+    const clientDir = path.join(moduleDir, 'client');
     app.use(express.static(clientDir));
     app.get('*', (_req, res) => res.sendFile(path.join(clientDir, 'index.html')));
   } else {
