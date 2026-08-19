@@ -13,21 +13,21 @@ const DB_PATH = path.join(DATA_DIR, 'db.json');
 // Mountain View. Safety ratings are rough starting points (1 worst - 5 best):
 // verify with local crime maps and edit in Settings.
 const DEFAULT_CITIES: CityInfo[] = [
-  { name: 'Mountain View', commuteMinutes: 8, safetyRating: 4, safetyNote: 'Generally safe; check specific complex reviews.', enabled: true },
-  { name: 'Los Altos', commuteMinutes: 12, safetyRating: 5, safetyNote: 'Very safe, quiet, limited rental stock.', enabled: true },
-  { name: 'Sunnyvale', commuteMinutes: 15, safetyRating: 4, safetyNote: 'Generally safe across most neighborhoods.', enabled: true },
-  { name: 'Palo Alto', commuteMinutes: 18, safetyRating: 4, safetyNote: 'Safe; pricier stock near downtown.', enabled: true },
-  { name: 'Santa Clara', commuteMinutes: 20, safetyRating: 4, safetyNote: 'Generally safe; varies near event venues.', enabled: true },
-  { name: 'Cupertino', commuteMinutes: 22, safetyRating: 5, safetyNote: 'Very safe.', enabled: true },
-  { name: 'Menlo Park', commuteMinutes: 22, safetyRating: 4, safetyNote: 'Safe; check area east of 101 separately.', enabled: true },
-  { name: 'Milpitas', commuteMinutes: 28, safetyRating: 4, safetyNote: 'Generally safe; newer complexes near the Great Mall.', enabled: true },
-  { name: 'Redwood City', commuteMinutes: 28, safetyRating: 3, safetyNote: 'Varies by neighborhood; research the specific block.', enabled: true },
-  { name: 'North San Jose', commuteMinutes: 25, safetyRating: 3, safetyNote: 'Varies by neighborhood; research the specific block.', enabled: true },
-  { name: 'San Carlos', commuteMinutes: 32, safetyRating: 4, safetyNote: 'Safe, quieter suburb.', enabled: true },
-  { name: 'Belmont', commuteMinutes: 35, safetyRating: 4, safetyNote: 'Safe, hilly, quiet.', enabled: true },
-  { name: 'Foster City', commuteMinutes: 35, safetyRating: 5, safetyNote: 'Very safe, popular with commuters.', enabled: true },
-  { name: 'Fremont', commuteMinutes: 35, safetyRating: 4, safetyNote: 'Generally safe; Ardenwood/Warm Springs popular. 84/Dumbarton traffic varies.', enabled: true },
-  { name: 'San Mateo', commuteMinutes: 40, safetyRating: 3, safetyNote: 'Varies by neighborhood; commute at the edge of your limit.', enabled: true },
+  { name: 'Mountain View', direction: 'south', commuteMinutes: 8, safetyRating: 4, safetyNote: 'Generally safe; check specific complex reviews.', enabled: true },
+  { name: 'Los Altos', direction: 'south', commuteMinutes: 12, safetyRating: 5, safetyNote: 'Very safe, quiet, limited rental stock.', enabled: true },
+  { name: 'Sunnyvale', direction: 'south', commuteMinutes: 15, safetyRating: 4, safetyNote: 'Generally safe across most neighborhoods.', enabled: true },
+  { name: 'Palo Alto', direction: 'north', commuteMinutes: 18, safetyRating: 4, safetyNote: 'Safe; pricier stock near downtown.', enabled: true },
+  { name: 'Santa Clara', direction: 'south', commuteMinutes: 20, safetyRating: 4, safetyNote: 'Generally safe; varies near event venues.', enabled: true },
+  { name: 'Cupertino', direction: 'south', commuteMinutes: 22, safetyRating: 5, safetyNote: 'Very safe.', enabled: true },
+  { name: 'Menlo Park', direction: 'north', commuteMinutes: 22, safetyRating: 4, safetyNote: 'Safe; check area east of 101 separately.', enabled: true },
+  { name: 'Milpitas', direction: 'east', commuteMinutes: 28, safetyRating: 4, safetyNote: 'Generally safe; newer complexes near the Great Mall.', enabled: true },
+  { name: 'Redwood City', direction: 'north', commuteMinutes: 28, safetyRating: 3, safetyNote: 'Varies by neighborhood; research the specific block.', enabled: true },
+  { name: 'North San Jose', direction: 'south', commuteMinutes: 25, safetyRating: 3, safetyNote: 'Varies by neighborhood; research the specific block.', enabled: true },
+  { name: 'San Carlos', direction: 'north', commuteMinutes: 32, safetyRating: 4, safetyNote: 'Safe, quieter suburb.', enabled: true },
+  { name: 'Belmont', direction: 'north', commuteMinutes: 35, safetyRating: 4, safetyNote: 'Safe, hilly, quiet.', enabled: true },
+  { name: 'Foster City', direction: 'north', commuteMinutes: 35, safetyRating: 5, safetyNote: 'Very safe, popular with commuters.', enabled: true },
+  { name: 'Fremont', direction: 'east', commuteMinutes: 35, safetyRating: 4, safetyNote: 'Generally safe; Ardenwood/Warm Springs popular. 84/Dumbarton traffic varies.', enabled: true },
+  { name: 'San Mateo', direction: 'north', commuteMinutes: 40, safetyRating: 3, safetyNote: 'Varies by neighborhood; research the specific block.', enabled: true },
 ];
 
 const DEFAULT_SETTINGS: Settings = {
@@ -36,6 +36,7 @@ const DEFAULT_SETTINGS: Settings = {
   twoBrMaxShare: 2200,
   requireCatFriendly: true,
   maxCommuteMinutes: 30,
+  maxCommuteNorthMinutes: 45,
   refreshHour: 8,
   cities: DEFAULT_CITIES,
   searches: [

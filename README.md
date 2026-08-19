@@ -6,7 +6,7 @@ A personal app for your Bay Area rental search: it pulls new Craigslist listings
 
 - **1b1b ≤ $3,000/mo**, or **2b2b ≤ $4,400/mo total** (≤ $2,200 your share with a roommate you'd find)
 - **Cat-friendly required** — listings that ban cats are heavily penalized
-- **≤ 30 min rush-hour drive to Mountain View** — city-level estimates, editable
+- **≤ 30 min rush-hour drive to Mountain View** (≤ 45 min from the Peninsula corridor north of it — Menlo Park through San Mateo) — city-level estimates, editable
 - Areas: Mountain View → San Mateo (Peninsula corridor), plus Sunnyvale, Santa Clara, Cupertino, Milpitas, Fremont, North San Jose
 - **Safety**: per-city 1–5 rating and notes, fully editable — treat the defaults as rough starting points and verify with local crime maps
 - Deadlines: **sign by 2026-09-15**, **move in 2026-10-01**

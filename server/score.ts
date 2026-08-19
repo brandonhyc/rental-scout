@@ -42,18 +42,23 @@ export function scoreListing(listing: Partial<Listing>, settings: Settings): { s
     }
   }
 
-  // Commute via recognized city.
+  // Commute via recognized city. Peninsula cities north of Mountain View get
+  // the more generous limit (the fallback name set covers db files saved
+  // before the direction field existed).
+  const NORTH_FALLBACK = new Set(['Palo Alto', 'Menlo Park', 'Redwood City', 'San Carlos', 'Belmont', 'Foster City', 'San Mateo']);
   const city = listing.city ? settings.cities.find((c) => c.name === listing.city) : undefined;
   let commuteMinutes: number | undefined;
   if (city) {
     commuteMinutes = city.commuteMinutes;
-    if (city.commuteMinutes <= settings.maxCommuteMinutes) {
+    const isNorth = city.direction === 'north' || (city.direction === undefined && NORTH_FALLBACK.has(city.name));
+    const limit = isNorth ? (settings.maxCommuteNorthMinutes ?? settings.maxCommuteMinutes) : settings.maxCommuteMinutes;
+    if (city.commuteMinutes <= limit) {
       const pts = 15;
-      parts.push({ label: 'Commute', points: pts, detail: `~${city.commuteMinutes} min rush-hour drive to Mountain View` });
+      parts.push({ label: 'Commute', points: pts, detail: `~${city.commuteMinutes} min rush-hour drive to Mountain View (within your ${limit} min${isNorth ? ' from-north' : ''} limit)` });
       score += pts;
     } else {
-      const pts = -Math.min(25, (city.commuteMinutes - settings.maxCommuteMinutes) * 2);
-      parts.push({ label: 'Commute', points: pts, detail: `~${city.commuteMinutes} min — over your ${settings.maxCommuteMinutes} min limit` });
+      const pts = -Math.min(25, (city.commuteMinutes - limit) * 2);
+      parts.push({ label: 'Commute', points: pts, detail: `~${city.commuteMinutes} min — over your ${limit} min limit` });
       score += pts;
     }
     // Safety from the city's rating (1-5).

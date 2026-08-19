@@ -52,6 +52,10 @@ export default function SettingsView({
             <input className={inputCls} type="number" value={draft.maxCommuteMinutes} onChange={(e) => setDraft({ ...draft, maxCommuteMinutes: Number(e.target.value) })} />
           </label>
           <label className="text-xs text-slate-500">
+            Max commute from north (min)
+            <input className={inputCls} type="number" value={draft.maxCommuteNorthMinutes} onChange={(e) => setDraft({ ...draft, maxCommuteNorthMinutes: Number(e.target.value) })} />
+          </label>
+          <label className="text-xs text-slate-500">
             Sign deadline
             <input className={inputCls} type="date" value={draft.signDeadline} onChange={(e) => setDraft({ ...draft, signDeadline: e.target.value })} />
           </label>

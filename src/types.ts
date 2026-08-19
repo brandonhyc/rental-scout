@@ -61,6 +61,9 @@ export interface CityInfo {
   safetyRating: number; // 1 (worst) - 5 (best), user-editable
   safetyNote: string;
   enabled: boolean;
+  // 'north' = Peninsula corridor north of Mountain View (Menlo Park → San
+  // Mateo), which gets the more generous commute limit.
+  direction?: 'north' | 'south' | 'east';
 }
 
 export interface SearchConfig {
@@ -76,6 +79,7 @@ export interface Settings {
   twoBrMaxShare: number; // e.g. 2200
   requireCatFriendly: boolean;
   maxCommuteMinutes: number; // e.g. 30
+  maxCommuteNorthMinutes: number; // e.g. 45 — limit for 'north' (Peninsula) cities
   refreshHour: number; // local hour (0-23) for the daily auto-refresh
   cities: CityInfo[];
   searches: SearchConfig[];
